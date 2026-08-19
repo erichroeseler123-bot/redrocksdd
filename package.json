@@ -4,6 +4,6 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "resend": "^6.0.2"
+    "resend": "^6.18.1"
   }
 }
