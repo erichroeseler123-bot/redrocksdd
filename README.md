@@ -23,7 +23,7 @@ Single source of truth for Red Rocks DD.
 
 ## Deployment
 
-This repository is intended to deploy directly to the existing Vercel project `redrocksdd` with repository root `/`.
+This repository deploys directly to the existing Vercel project `redrocksdd` from `main` with repository root `/`.
 
 Required environment variables:
 
