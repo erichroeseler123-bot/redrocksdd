@@ -2,12 +2,14 @@ import { Resend } from 'resend';
 
 const SUPPORT_ADDRESS = 'hello@redrocksdd.com';
 const FORWARD_TO = 'erichroeseler123@gmail.com';
+const INBOUND_TOKEN = '5BKuMraMvyWJiVcUx-s38FtNRNJdLBJWWBG0lT4VwmI';
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
     return res.status(200).json({ ok: true, service: 'redrocksdd-inbound', address: SUPPORT_ADDRESS });
   }
   if (req.method !== 'POST') return res.status(405).json({ ok: false, error: 'method_not_allowed' });
+  if (req.query?.token !== INBOUND_TOKEN) return res.status(401).json({ ok: false, error: 'unauthorized' });
 
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) return res.status(503).json({ ok: false, error: 'resend_not_configured' });
