@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://www.redrocksdd.com/</loc>
-    <lastmod>2026-08-22</lastmod>
-  </url>
-  <url>
-    <loc>https://www.redrocksdd.com/getting-home-from-red-rocks/</loc>
-    <lastmod>2026-08-22</lastmod>
-  </url>
-  <url>
-    <loc>https://www.redrocksdd.com/uber-from-red-rocks/</loc>
-    <lastmod>2026-08-22</lastmod>
-  </url>
+  <url><loc>https://www.redrocksdd.com/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/getting-home-from-red-rocks/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/uber-from-red-rocks/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/joe-bonamassa-red-rocks-2026-08-23/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/santana-red-rocks-2026-08-24/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/ian-munsick-red-rocks-2026-08-25/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/ray-lamontagne-red-rocks-2026-08-26/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/goose-red-rocks-2026-08-27/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/goose-red-rocks-2026-08-28/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/bryson-tiller-red-rocks-2026-08-29/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/ty-myers-red-rocks-2026-08-30/</loc><lastmod>2026-08-22</lastmod></url>
+  <url><loc>https://www.redrocksdd.com/shows/john-fogerty-red-rocks-2026-08-31/</loc><lastmod>2026-08-22</lastmod></url>
 </urlset>

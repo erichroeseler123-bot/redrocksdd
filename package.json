@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "dependencies": {
-    "resend": "^6.18.1"
-  }
+  "scripts": {"generate:shows":"node scripts/generate-shows.mjs"},
+  "dependencies": {"resend":"^6.18.1"}
 }
