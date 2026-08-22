@@ -4,19 +4,25 @@ async function adminPage(){
   const ok=await sb.rpc('is_red_rocks_dd_admin');
   if(!ok.data){$('#app').innerHTML='<section class="sec white"><div class="w"><div class="card">Not authorized.</div></div></section>';return}
 
-  const [ops,reqs,unmatched,apps]=await Promise.all([
+  const [ops,reqs,unmatched,apps,recovery]=await Promise.all([
     sb.rpc('red_rocks_dd_admin_operators'),
     sb.rpc('red_rocks_dd_admin_requests'),
     sb.rpc('red_rocks_dd_admin_unmatched'),
-    sb.from('rrdd_driver_applications').select('*').order('created_at',{ascending:false})
+    sb.from('rrdd_driver_applications').select('*').order('created_at',{ascending:false}),
+    sb.rpc('red_rocks_dd_admin_driver_recovery')
   ]);
 
-  const O=ops.data||[],R=reqs.data||[],U=unmatched.data||[],A=apps.data||[];
+  const O=ops.data||[],R=reqs.data||[],U=unmatched.data||[],A=apps.data||[],Q=recovery.data||[];
+  const incomplete=Q.filter(x=>!x.completed);
   $('#app').innerHTML=`<section class="sec white"><div class="w">
     <div class="row"><div><div class="eyebrow" style="color:#8f3420">OPERATIONS</div><h2>RED ROCKS DD ADMIN</h2></div><button class="btn ghost" onclick="logout()">Log out</button></div>
-    <div class="grid"><div class="card"><h3>${A.length}</h3><p>new driver applications</p></div><div class="card"><h3>${O.length}</h3><p>activated operator records</p></div><div class="card"><h3>${R.length}</h3><p>bookings</p></div><div class="card"><h3>${U.length}</h3><p>legacy unmatched requests</p></div></div>
+    <div class="grid"><div class="card"><h3>${A.length}</h3><p>saved driver applications</p></div><div class="card"><h3>${incomplete.length}</h3><p>drivers needing recovery / follow-up</p></div><div class="card"><h3>${O.length}</h3><p>activated operator records</p></div><div class="card"><h3>${R.length}</h3><p>bookings</p></div></div>
 
-    <h3 style="margin-top:30px">NEW DRIVER APPLICATIONS</h3>
+    <h3 style="margin-top:30px">DRIVER RECOVERY & FOLLOW-UP</h3>
+    <p class="muted">Every driver who entered a valid email is retained here, including failed or incomplete attempts. Use this queue to contact people before they disappear.</p>
+    <div class="tablewrap"><table class="table"><thead><tr><th>Driver</th><th>Contact</th><th>What we have</th><th>Where they stopped</th><th>Attempts</th><th>Last activity</th></tr></thead><tbody>${Q.map(q=>`<tr><td><b>${esc(q.full_name||'Name not saved')}</b><br><span class="muted small">${esc(q.company_name||'')}</span></td><td><a href="mailto:${esc(q.email)}">${esc(q.email)}</a>${q.phone?`<br><a href="tel:${esc(q.phone)}">${esc(q.phone)}</a>`:''}</td><td>${q.license_number?`Authority: ${esc(q.license_number)}<br>`:''}${q.vehicle?`Vehicle: ${esc(q.vehicle)}${q.vehicle_capacity?` · cap ${Number(q.vehicle_capacity)}`:''}<br>`:''}<span class="muted small">${esc(q.insurance_carrier||'')}</span></td><td><b>${esc((q.stage||'unknown').replaceAll('_',' '))}</b>${q.last_error?`<br><span class="small" style="color:#8f3420">${esc(q.last_error)}</span>`:''}${q.completed?'<br><span class="status">COMPLETED</span>':''}</td><td>${Number(q.attempt_count)||1}</td><td>${esc(new Date(q.last_attempt_at).toLocaleString())}<br><span class="muted small">first ${esc(new Date(q.first_attempt_at).toLocaleDateString())}</span></td></tr>`).join('')||'<tr><td colspan="6">No recovery records yet.</td></tr>'}</tbody></table></div>
+
+    <h3 style="margin-top:30px">SAVED DRIVER APPLICATIONS</h3>
     <div class="tablewrap"><table class="table"><thead><tr><th>Driver</th><th>Contact</th><th>Authority</th><th>Vehicle</th><th>Availability</th><th>Status</th></tr></thead><tbody>${A.map(a=>`<tr><td><b>${esc(a.driver_name)}</b><br><span class="muted small">${esc(a.company_name)}</span></td><td><a href="mailto:${esc(a.email)}">${esc(a.email)}</a><br><a href="tel:${esc(a.phone)}">${esc(a.phone)}</a></td><td>${esc(a.license_number||'')}<br><span class="muted small">${esc(a.insurance_carrier||'Insurance to finish')}</span></td><td>${esc(a.vehicle)}<br><span class="muted small">capacity ${Number(a.capacity)||0}</span></td><td>${(a.availability_dates||[]).slice(0,4).map(esc).join('<br>')||'<span class="muted">Not selected yet</span>'}${(a.availability_dates||[]).length>4?`<br><span class="muted small">+${a.availability_dates.length-4} more</span>`:''}</td><td>${esc(statusLabel(a.status||'review_pending'))}<br><span class="muted small">${esc(new Date(a.created_at).toLocaleString())}</span></td></tr>`).join('')||'<tr><td colspan="6">No saved driver applications yet.</td></tr>'}</tbody></table></div>
 
     <h3 style="margin-top:30px">BOOKINGS</h3>
