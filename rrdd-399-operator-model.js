@@ -14,18 +14,18 @@ window.rrddUpdateApplicantEconomics=function rrddUpdateApplicantEconomics(){
 
 window.companyPage=async function rrddSplitCompanyPage(){
   $('#app').innerHTML=`<section class="sec white"><div class="w">
-    <div class="founding-banner"><div><div class="eyebrow">NOW ACCEPTING LICENSED OPERATORS & LIMO COMPANIES</div><h2>LIMO COMPANIES: EARN $350 + TIPS.</h2><p><b>Limo-company trip: customer pays $399 total.</b><br>Red Rocks DD collects the $49 reservation fee. The limo company receives $350 on the day of service, plus tips.</p></div><div class="founding-money">$350+<small>LIMO COMPANY PAY + TIPS</small></div></div>
-    <div class="season-note"><b>Chevrolet Suburbans only.</b> Individual licensed operators can still apply under the standard $250 + tips driver rate. Established limo/transportation companies qualify for $350 + tips.</div>
+    <div class="founding-banner"><div><div class="eyebrow">NOW ACCEPTING LICENSED TAXI OPERATORS & LIMO COMPANIES</div><h2>LIMO COMPANIES: EARN $350 + TIPS.</h2><p><b>Limo-company trip: customer pays $399 total.</b><br>Red Rocks DD collects the $49 reservation fee. The limo company receives $350 on the day of service, plus tips.</p></div><div class="founding-money">$350+<small>LIMO COMPANY PAY + TIPS</small></div></div>
+    <div class="season-note"><b>Chevrolet Suburbans only.</b> Licensed taxi operators qualify for the standard $250 + tips rate. Established limo/transportation companies qualify for $350 + tips.</div>
     <h2>YOUR SUBURBAN. YOUR NIGHTS. OUR CUSTOMERS.</h2>
     <p class="lead">Choose the Red Rocks nights you want to work. Pick up the group, provide the tailgate setup, remain onsite through the show, and drive the same group home afterward. Standard service window is up to 8 hours.</p>
     <div class="grid">
       <div class="card"><h3>Limo company: $350 + tips</h3><p>Customer total is $399: $49 reservation fee to Red Rocks DD and $350 paid to the limo company on the service day.</p></div>
-      <div class="card"><h3>Individual driver: $250 + tips</h3><p>Individual licensed operators remain on the standard $299 customer trip: $49 reservation fee and $250 day-of operator payment.</p></div>
-      <div class="card"><h3>One-step application</h3><p>Choose your applicant type, enter your commercial credentials, and upload one clear Chevrolet Suburban photo. No password or email-login step.</p></div>
+      <div class="card"><h3>Taxi operator: $250 + tips</h3><p>Licensed taxi operators use the standard $299 customer trip: $49 reservation fee and $250 day-of operator payment.</p></div>
+      <div class="card"><h3>One-step application</h3><p>Choose taxi operator or limo company, enter your commercial credentials, and upload one clear Chevrolet Suburban photo. No password or email-login step.</p></div>
     </div>
     <div class="form" style="margin-top:20px"><div class="fg">
-      <div class="f"><label>Applicant type *</label><select id="rrdd-applicant-type" onchange="rrddUpdateApplicantEconomics()"><option value="limo_company">Limo / transportation company — $350 + tips</option><option value="individual">Individual licensed operator — $250 + tips</option></select></div>
-      <div class="f"><label>Company / operator name *</label><input id="cc" placeholder="Your limo company or operating name"></div>
+      <div class="f"><label>Applicant type *</label><select id="rrdd-applicant-type" onchange="rrddUpdateApplicantEconomics()"><option value="limo_company">Limo / transportation company — $350 + tips</option><option value="taxi">Licensed taxi operator — $250 + tips</option></select></div>
+      <div class="f"><label>Company / operator name *</label><input id="cc" placeholder="Your taxi or limo company / operating name"></div>
       <div class="f"><label>Primary driver / contact name *</label><input id="cn"></div>
       <div class="f"><label>Email *</label><input id="ce" type="email" autocomplete="email"></div>
       <div class="f"><label>Phone *</label><input id="ct" autocomplete="tel"></div>
@@ -56,5 +56,5 @@ window.signupDriver=async function rrddSplitOneStepSignup(){
   const btn=$('#driverSignupBtn');btn.disabled=true;btn.textContent='SAVING YOUR APPLICATION…';
   const result=await sb.rpc('submit_rrdd_operator_application',{p_applicant_type:applicantType,p_driver_name:values.name,p_company_name:values.company,p_email:values.email,p_phone:values.phone,p_license_number:values.license,p_insurance_carrier:values.insurance||null,p_vehicle:values.vehicle,p_capacity:values.capacity,p_availability_dates:selectedDates,p_payment_methods:paymentMethods,p_cash_required:cashRequired,p_vehicle_photo_data_url:vehiclePhoto,p_source:'redrocksdd_operator_application'});
   if(result.error){btn.disabled=false;btn.textContent='SUBMIT MY OPERATOR APPLICATION';return flash('#cm',result.error.message||'Unable to submit the application.',true)}
-  $('#app').innerHTML=`<section class="sec white"><div class="w" style="max-width:720px"><div class="card" style="text-align:center"><span class="status">APPLICATION RECEIVED</span><h2>YOU'RE IN THE REVIEW QUEUE.</h2><p class="lead">We saved your operator information and Chevrolet Suburban photo.</p><div class="note good" style="margin:20px 0"><b>${e.limo?'Limo-company':'Individual-driver'} economics:</b> customer pays $${e.total/100} total. Red Rocks DD collects $49. Approved operator receives $${e.pay/100} + tips on the service day.</div><p>We’ll review the commercial authority, insurance and vehicle information and contact you if we need anything else.</p></div></div></section>`;
+  $('#app').innerHTML=`<section class="sec white"><div class="w" style="max-width:720px"><div class="card" style="text-align:center"><span class="status">APPLICATION RECEIVED</span><h2>YOU'RE IN THE REVIEW QUEUE.</h2><p class="lead">We saved your operator information and Chevrolet Suburban photo.</p><div class="note good" style="margin:20px 0"><b>${e.limo?'Limo-company':'Taxi-operator'} economics:</b> customer pays $${e.total/100} total. Red Rocks DD collects $49. Approved operator receives $${e.pay/100} + tips on the service day.</div><p>We’ll review the commercial authority, insurance and vehicle information and contact you if we need anything else.</p></div></div></section>`;
 };
